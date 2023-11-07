@@ -49,7 +49,7 @@ Builds the app folder for production to the `build` folder.<br>
 ## Marvel API Configuration
 
 - Log on to `https://developer.marvel.com` and get your api-key
-- Go to `./src/utils/helper.js` and paste your api-key in `API_KEY` variable
+- Go to `./src/utils/helper.js` , paste your api-key in `API_KEY` variable and paste your private api-key in `PRIVATE_API_KEY` variable
 
 See the magic and have a fun with clean and fresh UI
 

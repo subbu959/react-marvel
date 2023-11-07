@@ -1,9 +1,16 @@
-import { BASE_URL, SERIES_BASE_URL, API_KEY } from '../helper';
-
+import { BASE_URL, SERIES_BASE_URL, API_KEY,PRIVATE_API_KEY } from '../helper';
+var CryptoJS = require("crypto-js");
+let ts=Date.now();
+function hashgen(apiKey,privateApiKey){
+  let cs = ts+privateApiKey+apiKey;
+  var md5Hash = CryptoJS.MD5(cs);
+  var hash = md5Hash.toString(CryptoJS.enc.Hex);
+  return hash;
+}
 const getAllSeriesAPI = (offset, success) => {
 
   let url =
-    `${BASE_URL}/${SERIES_BASE_URL}?apikey=${API_KEY}&limit=40&offset=${offset}`;
+    `${BASE_URL}/${SERIES_BASE_URL}?apikey=${API_KEY}&limit=40&offset=${offset}&hash=${hashgen(API_KEY,PRIVATE_API_KEY)}&ts=${ts}`;
   return fetch(url)
     .then(res => res.json())
     .then((resObj) => {
@@ -25,7 +32,7 @@ const getAllSeriesAPI = (offset, success) => {
 const getSeriesDetailsAPI = (seriesId, success) => {
 
   let url =
-    `${BASE_URL}/${SERIES_BASE_URL}/${seriesId}?apikey=${API_KEY}`;
+    `${BASE_URL}/${SERIES_BASE_URL}/${seriesId}?apikey=${API_KEY}&hash=${hashgen(API_KEY,PRIVATE_API_KEY)}&ts=${ts}`;
   return fetch(url)
     .then(res => res.json())
     .then((resObj) => {
